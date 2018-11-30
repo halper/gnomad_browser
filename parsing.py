@@ -137,12 +137,12 @@ def get_variants_from_sites_vcf(sites_vcf):
                 ]
                 variant['site_quality'] = float(fields[5])
 
-                filter_status = info_field['AS_FilterStatus'].split(',')[i]
+                filter_status = fields[6]
                 filter_field_list = fields[6].split(';')
                 fail_filters = ('LCR', 'SEGDUP', 'InbreedingCoeff')
                 failed = set(filter_field_list).intersection(fail_filters)
 
-                if filter_status == 'PASS' and len(failed) > 0:
+                if (filter_status == 'PASS' or filter_status == 'FP') and len(failed) > 0:
                     variant['filter'] = '|'.join(failed)
                 elif filter_status is not 'PASS' and len(failed) > 0:
                     variant['filter'] = filter_status + '|' + '|'.join(failed)
@@ -168,13 +168,13 @@ def get_variants_from_sites_vcf(sites_vcf):
                 variant['pop_acs'] = dict([(POPS[x], int(info_field['AC_%s' % x].split(',')[i]) if ('AC_%s' % x) in info_field else 0) for x in POPS])
                 variant['pop_ans'] = dict([(POPS[x], int(info_field.get('AN_%s' % x, 0))) for x in POPS])
                 variant['pop_homs'] = dict([(POPS[x], int(info_field['Hom_%s' % x].split(',')[i] if ('Hom_%s' % x) in info_field else 0)) for x in POPS])
-                if variant['chrom'] not in ('X', 'Y'):
-                    if not info_field['AC_Male'].split(',')[i] == ".":
-                        variant['ac_male'] = int(info_field['AC_Male'].split(',')[i])
-                    if not info_field['AC_Female'].split(',')[i] == ".":
-                        variant['ac_female'] = int(info_field['AC_Female'].split(',')[i])
-                    variant['an_male'] = int(info_field['AN_Male'])
-                    variant['an_female'] = int(info_field['AN_Female'])
+                #if variant['chrom'] not in ('X', 'Y'):
+                   # if not info_field['AC_Male'].split(',')[i] == ".":
+                   #     variant['ac_male'] = int(info_field['AC_Male'].split(',')[i])
+                    #if not info_field['AC_Female'].split(',')[i] == ".":
+                    #    variant['ac_female'] = int(info_field['AC_Female'].split(',')[i])
+                    #variant['an_male'] = int(info_field['AN_Male'])
+                    #variant['an_female'] = int(info_field['AN_Female'])
                 variant['hom_count'] = sum(variant['pop_homs'].values())
                 if variant['chrom'] == 'X':
                     if not par(variant['chrom'], variant['pos']):

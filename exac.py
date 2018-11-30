@@ -55,9 +55,9 @@ MONGO_URL = 'mongodb://%s:%s' % (MONGO_HOST, MONGO_PORT)
 
 if DEPLOYMENT_ENVIRONMENT == 'development':
      EXOME_FILES_DIRECTORY = '/Users/msolomon/Projects/exacg/feb2017releasetestdata/170226/exomes/'
-     GENOME_FILES_DIRECTORY = '/Users/msolomon/Projects/exacg/feb2017releasetestdata/170226/genomes/'
+     GENOME_FILES_DIRECTORY = '/media/sf_Documents/gnomad_linux/'
      EXOMES_SITES_VCFS = glob.glob(os.path.join(os.path.dirname(__file__), EXOME_FILES_DIRECTORY, 'gnomad.exomes.sites.X.vcf.bgz'))
-     GENOMES_SITES_VCFS = glob.glob(os.path.join(os.path.dirname(__file__), GENOME_FILES_DIRECTORY, 'gnomad.genomes.sites.coding.X.vcf.bgz'))
+     GENOMES_SITES_VCFS = glob.glob(os.path.join(os.path.dirname(__file__), GENOME_FILES_DIRECTORY, 'bogazici.6.samples.graph.vcf.vep.vcf.chr1.precomputed.vcf.gz'))
 
 if DEPLOYMENT_ENVIRONMENT == 'production':
     EXOME_FILES_DIRECTORY = '/var/data/loading_data/exomes'

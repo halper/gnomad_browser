@@ -383,7 +383,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1><span class="hidden-xs">Variant: </span>{{ variant.chrom }}:{{ variant.pos }} {{ variant.ref }} / {{ variant.alt }}</h1>
+                <h1><span class="hidden-xs">Variant: </span>{{ variant.chrom }}:{{ variant.pos }} {{ variant.ref }} > {{ variant.alt }}</h1>
                 {% if variant.mnps %}
                     {% for mnp in variant.mnps %}
                         {% if mnp.category == 'UNCHANGED' %}
